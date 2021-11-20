@@ -487,13 +487,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 995871448}
   speed: 6
+  JetpackThrust: 20
   gravity: -9.81
-  jumpHeight: 3
+  jumpHeight: 1
   groundCheck: {fileID: 587378512}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  playerBody: {fileID: 0}
 --- !u!1 &1902507992
 GameObject:
   m_ObjectHideFlags: 0
