@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float JetpackThrust = 20f;
     public float gravity = -9.81f;
     public float jumpHeight = 1f;
+    public float decay = 1f;
+    public float percentdecay = 1.02f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -29,13 +31,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("left shift") && !isGrounded)
         {
 
-            Vector3 fly = Camera.main.transform.forward * 2 * JetpackThrust * Time.deltaTime;
+            //  Vector3 fly = Camera.main.transform.forward * 2 * JetpackThrust * Time.deltaTime;
 
-            fly.y = 0;
+            //   fly.y = 0;
 
             velocity.y = Mathf.Sqrt(jumpHeight * -6f * gravity);
 
-            controller.Move(fly);
+            //  controller.Move(fly);
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -49,10 +51,44 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
+        //controller.Move(move);
+
+        velocity.x = velocity.x + (move.x * (float)0.5);
+        velocity.z = velocity.z + (move.z * (float)0.5);
+
+
+        if (Mathf.Abs(velocity.x) > 0.01)
+        {
+            velocity.x = velocity.x / percentdecay;
+
+        }
+        else
+        {
+            velocity.x = 0;
+        }
+
+        if (Mathf.Abs(velocity.x) > 0.01)
+        {
+            velocity.y = velocity.y / percentdecay;
+
+        }
+        else
+        {
+            velocity.x = 0;
+        }
+
+        if (Mathf.Abs(velocity.z) > 0.01)
+        {
+            velocity.z = velocity.z / percentdecay;
+
+        }
+        else
+        {
+            velocity.z = 0;
+        }
 
 
 
-        controller.Move(move * speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
