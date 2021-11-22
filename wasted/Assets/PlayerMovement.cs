@@ -20,6 +20,15 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
 
     public Transform playerBody;
+    public Rigidbody rb;
+
+    
+
+    private void Start()
+    {
+        rb = GetComponentInParent<Rigidbody>();
+       
+    }
 
 
     // Update is called once per frame
@@ -33,9 +42,9 @@ public class PlayerMovement : MonoBehaviour
 
             fly.y = 0;
 
-            velocity.y = Mathf.Sqrt(jumpHeight * -6f * gravity);
+            rb.velocity += Mathf.Sqrt(jumpHeight * -2f * gravity) * transform.up;
 
-            controller.Move(fly);
+            rb.velocity += fly;
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -48,20 +57,23 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move = Camera.main.transform.right * x + Camera.main.transform.forward * z;
 
+        rb.velocity += move;
 
+       
 
-        controller.Move(move * speed * Time.deltaTime);
+      //  controller.Move(move * speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            //  velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            rb.velocity += Mathf.Sqrt(jumpHeight * -2f * gravity) * transform.up;
         }
+        //rb.velocity += velocity;
+        //  velocity.y += gravity * Time.deltaTime;
 
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
+        //  controller.Move(velocity * Time.deltaTime);
 
     }
 }
