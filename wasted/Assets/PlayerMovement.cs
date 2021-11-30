@@ -7,10 +7,11 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
-    public float speed = 6f;
+    public float speed = 90f;
     public float JetpackThrust = 10f;
     public float gravity = -9.81f;
     public float jumpHeight = 1f;
+    public float speedlimit = 10f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -35,14 +36,27 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey("left shift") && !isGrounded)
+        if (Input.GetKey("left shift"))
         {
 
             Vector3 fly = Camera.main.transform.forward * 2 * JetpackThrust * Time.deltaTime;
 
             fly.y = 0;
 
-            rb.velocity += Mathf.Sqrt(jumpHeight) * transform.up;
+
+            /*   if (Camera.main.transform.forward.y < -0.3 || Camera.main.transform.forward.y > 0.3)
+               {
+                   rb.velocity += Mathf.Sqrt(jumpHeight) * transform.up;
+               } else
+               {
+                   rb.velocity += Mathf.Sqrt(jumpHeight) * transform.up * 0.5f;
+               } */
+
+
+            rb.velocity += Mathf.Sqrt(jumpHeight) * transform.up * Mathf.Sqrt(Mathf.Abs(Camera.main.transform.forward.y));
+
+
+
 
             rb.velocity += fly;
         }
@@ -59,8 +73,9 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = Camera.main.transform.right * x + Camera.main.transform.forward * z;
 
-        rb.velocity += move;
+        move.y = 0;
 
+        rb.velocity += move * (Time.deltaTime) * speed;
 
 
         //  controller.Move(move * speed * Time.deltaTime);
