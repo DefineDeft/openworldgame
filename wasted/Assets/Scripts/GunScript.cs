@@ -7,6 +7,9 @@ public class GunScript : MonoBehaviour
 {
     public GameObject bullet;
 
+    public AudioClip impact;
+    public AudioSource audioSource;
+
     public float shootForce, upwardForce;
 
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
@@ -14,12 +17,10 @@ public class GunScript : MonoBehaviour
     public bool allowButtonHold;
 
     public float flyDistance;
-
     public float bulletDuration;
 
-   public int bulletsLeft, bulletsShot;
-
-   public bool shooting, readyToShoot, reloading;
+    public int bulletsLeft, bulletsShot;
+    public bool shooting, readyToShoot, reloading;
 
     public Camera fpsCam;
     public Transform attackPoint;
@@ -110,7 +111,10 @@ public class GunScript : MonoBehaviour
 
         StartCoroutine("DeleteBullet", currentBullet);
 
-
+        //audioSource.PlayOneShot(impact, 0.5f);
+        
+        audioSource.Play();
+        
         bulletsLeft--;
         bulletsShot++;
 
@@ -129,6 +133,10 @@ public class GunScript : MonoBehaviour
 
 
     }
+
+    
+
+    
 
     private void ResetShot()
     {

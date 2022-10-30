@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
+    public AudioClip impact;
+    public AudioSource audioSource;
+
     public float speed;
     public float JetpackThrust;
     public float gravity;
@@ -62,6 +65,10 @@ public class PlayerMovement : MonoBehaviour
             if (canFly)
             {
                 StartCoroutine(jetpackboost());
+
+                //audioSource.PlayOneShot(impact, 0.5f);
+
+                audioSource.Play();
             }
 
         }

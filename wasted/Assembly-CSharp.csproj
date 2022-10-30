@@ -55,9 +55,7 @@
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\FirstPersonAudio.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\FirstPersonLook.cs" />
      <Compile Include="Assets\Scripts\HealthScript.cs" />
-     <Compile Include="Assets\MouseLook.cs" />
      <Compile Include="Assets\Scripts\MouseLook.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Crouch.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
      <None Include="Assets\Samples\Terrain Tools\0.1.0-preview\Terrain Assets\ThirdPartyNotices.txt" />
