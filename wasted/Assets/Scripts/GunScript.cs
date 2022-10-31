@@ -20,6 +20,7 @@ public class GunScript : MonoBehaviour
     public float bulletDuration;
 
     public int bulletsLeft, bulletsShot;
+    public int bulletDamage;
     public bool shooting, readyToShoot, reloading;
 
     public Camera fpsCam;
@@ -98,6 +99,12 @@ public class GunScript : MonoBehaviour
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+
+        currentBullet.TryGetComponent(out BulletScript bulletdata);
+
+        bulletdata.SetDamage(bulletDamage);
+        bulletdata.isEnemyBullet = false;
+
 
         currentBullet.transform.forward = directionWithSpread.normalized;
 

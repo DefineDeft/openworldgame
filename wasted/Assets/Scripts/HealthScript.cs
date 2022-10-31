@@ -5,14 +5,34 @@ using UnityEngine.UI;
 
 public class HealthScript : MonoBehaviour
 {
-    [SerializeField] private float playerHealth;
-    [SerializeField] private float maxHealth;
+    [SerializeField] private double playerHealth;
+    [SerializeField] private double maxHealth;
     [SerializeField] private Image healthImage;
 
     [SerializeField] private int damage;
 
+    public Transform respawn;
+    
+
+    public void TakeDamage(int damageAmount)
+    {
+        playerHealth = playerHealth - damageAmount;
+
+        if (playerHealth <= 0)
+        {
+            this.transform.parent.transform.position = respawn.position;
+            playerHealth = maxHealth;
+        }
+
+
+        UpdateHealth();
+    }
+
+
+
     private void Update()
     {
+
         if (Input.GetKeyDown("e"))
         {
             playerHealth -= damage;
@@ -23,7 +43,11 @@ public class HealthScript : MonoBehaviour
 
     private void UpdateHealth()
     {
-        healthImage.fillAmount = playerHealth / maxHealth;
+
+       
+            healthImage.fillAmount = (float)(playerHealth / maxHealth);
+
+
     }
 
 }
