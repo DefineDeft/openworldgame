@@ -22,8 +22,10 @@ public class BulletScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision otherCollision)
     {
+
+       Collider other = otherCollision.collider;
 
         if (isEnemyBullet == true)
         {
