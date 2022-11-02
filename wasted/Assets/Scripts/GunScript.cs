@@ -37,25 +37,26 @@ public class GunScript : MonoBehaviour
         readyToShoot = true;
     }
 
-    private void Update()
+    public void ManualReload()
     {
-        MyInput();
-
-        if (ammunitionDisplay != null)
-        {
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-        }
-    }
-
-    private void MyInput()
-    {
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
-
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
+        if (bulletsLeft < magazineSize && !reloading)
         {
             Reload();
         }
+    }
+
+    public void MyInput(float shootingVal)
+    {
+        bool shooting;
+
+        if (shootingVal > 0)
+        {
+            shooting = true;
+        } else
+        {
+            shooting = false;
+        }
+
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
         {
             Reload();
@@ -66,6 +67,11 @@ public class GunScript : MonoBehaviour
             bulletsShot = 0;
             Shoot();
 
+        }
+
+        if (ammunitionDisplay != null)
+        {
+            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
 
     }

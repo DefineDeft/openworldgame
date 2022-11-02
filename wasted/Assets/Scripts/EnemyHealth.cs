@@ -30,12 +30,7 @@ public class EnemyHealth : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown("e"))
-        {
-            playerHealth -= damage;
 
-            UpdateHealth();
-        }
     }
 
     private void UpdateHealth()
