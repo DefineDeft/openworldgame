@@ -43,7 +43,7 @@ public class EnemyHealth : MonoBehaviour
 
 
         //Material original = GetComponent<MeshRenderer>().material;
-        Color newColor = new Color((float)(playerHealth / maxHealth),0, 0,100);
+        Color newColor = new Color(255,0, 0, (float)(playerHealth / maxHealth));
 
         GetComponent<MeshRenderer>().material.color = newColor;
 

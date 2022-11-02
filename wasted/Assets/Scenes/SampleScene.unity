@@ -789,10 +789,10 @@ MonoBehaviour:
   bullet: {fileID: 3664061967568514446, guid: 0b0ef7749fb45df4ebaed4d700b57b78, type: 3}
   impact: {fileID: 8300000, guid: 6f0936a8c1fac5f4689ae518b5326cdd, type: 3}
   audioSource: {fileID: 940538266}
-  shootForce: 10
+  shootForce: 5
   upwardForce: 0
   timeBetweenShooting: 0.06
-  spread: 5
+  spread: 2
   reloadTime: 1.5
   timeBetweenShots: 0.1
   magazineSize: 100
@@ -1047,7 +1047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995871447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 169, z: 0}
+  m_LocalPosition: {x: -5.03, y: 132.1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 963194228}
@@ -1700,7 +1700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545955868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 168, z: -1.58}
+  m_LocalPosition: {x: -10, y: 126.286, z: -2.533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1744,7 +1744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785606469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.39, y: 168.28, z: -1.58}
+  m_LocalPosition: {x: -8.39, y: 126.8, z: -0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2147,6 +2147,14 @@ PrefabInstance:
       propertyPath: respawn
       value: 
       objectReference: {fileID: 1545955869}
+    - target: {fileID: 1735981957460389771, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735981957460389771, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: playerHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1735981957460389809, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2193,12 +2201,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1735981957460389810, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
       propertyPath: m_Name
-      value: Capsule
+      value: Sphere
       objectReference: {fileID: 0}
     - target: {fileID: 1735981957460389812, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 995871447}
+    - target: {fileID: 1735981957460389813, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735981958811676064, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735981958811676064, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735981958811676064, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1735981959058254324, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
       propertyPath: fpsCam
       value: 
@@ -2207,5 +2231,13 @@ PrefabInstance:
       propertyPath: playerTarget
       value: 
       objectReference: {fileID: 995871447}
+    - target: {fileID: 1735981959058254326, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735981959058254326, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60d6a3f4ff5dc184e9692c64a9bd9e29, type: 3}

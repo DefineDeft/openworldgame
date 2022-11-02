@@ -24,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 directiontoPlayer = Player.transform.position - enemybody.transform.position;
 
         enemybody.transform.Rotate(directiontoPlayer.normalized);
-        enemybody.AddForce(directiontoPlayer.normalized * 2);
+        enemybody.AddForce(directiontoPlayer.normalized);
 
         
 
