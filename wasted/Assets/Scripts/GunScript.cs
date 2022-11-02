@@ -47,22 +47,14 @@ public class GunScript : MonoBehaviour
 
     public void MyInput(float shootingVal)
     {
-        bool shooting;
+        
 
-        if (shootingVal > 0)
-        {
-            shooting = true;
-        } else
-        {
-            shooting = false;
-        }
-
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+        if (readyToShoot && shootingVal > 0 && !reloading && bulletsLeft <= 0)
         {
             Reload();
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shootingVal > 0 && !reloading && bulletsLeft > 0)
         {
             bulletsShot = 0;
             Shoot();
