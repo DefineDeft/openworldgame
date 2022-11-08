@@ -4,48 +4,102 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-
+    //
     private CharacterController controller;
-    private Vector3 playerVelocity;
-    public float speed = 5f;
-    public float gravity = -9.8f;
-    public float jumpHeight = 3f;
-    private bool isgrounded;
+
+    public AudioClip impact;
+    public AudioSource audioSource;
+
+    public float speed;
+    public float JetpackThrust;
+    public float gravity;
+    public float jumpHeight;
+    public float jetPackDelay;
+    public float speedlimit;
+
+    private bool canFly = true;
+
+    public Transform groundCheck;
+    public float groundDistance;
+    public LayerMask groundMask;
+
+
+    Vector3 velocity;
+    bool isGrounded;
+
+    public Transform playerBody;
+    public Rigidbody rb;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        isgrounded = controller.isGrounded;
+        
     }
 
     public void ProcessMove(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
-        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
 
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        playerVelocity.y += gravity * Time.deltaTime;
-        if (isgrounded && playerVelocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
-            playerVelocity.y = -2f;
+            velocity.y = -2f;
         }
 
+        float x = input.x;
+        float z = input.y; //used for z movement here (2 dimension vector)
 
-        controller.Move(playerVelocity * Time.deltaTime);
+        Vector3 move = Camera.main.transform.right * x + Camera.main.transform.forward * z;
+
+        move.y = 0;
+
+        rb.velocity += move * (Time.deltaTime) * speed;
+
+    }
+
+    private IEnumerator jetpackboost()
+    {
+        canFly = false;
+
+        Vector3 fly = Camera.main.transform.forward * 2 * JetpackThrust;
+
+        fly.y = Mathf.Abs(fly.y);
+
+        rb.AddForce(fly, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(jetPackDelay);
+
+        canFly = true;
+
+    }
+
+    public void Jetpack(float isActive)
+    {
+        if (isActive > 0 && canFly)
+        {
+            canFly = false;
+            StartCoroutine(jetpackboost());
+
+            //audioSource.PlayOneShot(impact, 0.5f);
+
+            audioSource.Play();
+        }
+
     }
 
     public void Jump()
     {
-        if (isgrounded)
+        if (isGrounded)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            rb.velocity += Mathf.Sqrt(jumpHeight * -2f * gravity) * transform.up;
         }
     }
 

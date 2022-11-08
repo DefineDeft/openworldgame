@@ -21,6 +21,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     public int bulletsLeft, bulletsShot;
     public int bulletDamage;
+    public float minDistance = 30f;
     public bool shooting, readyToShoot, reloading;
 
     public Transform attackPoint;
@@ -75,7 +76,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     private void Shoot()
     {
-        readyToShoot = false;
+        
 
         
 
@@ -85,68 +86,73 @@ public class EnemyBulletScript : MonoBehaviour
 
         Vector3 playerDirection = playerTarget.transform.position - attackPoint.position;
 
-        Ray ray = new Ray(attackPoint.position, playerDirection.normalized);
-
-        Vector3 targetPoint;
-
-        /*   if (Physics.Raycast(ray, out hit))
-           {
-               targetPoint = hit.point;
-           } else
-           {
-          targetPoint = ray.GetPoint(flyDistance);
-           }
-        */
-
-        targetPoint = ray.GetPoint(flyDistance);
-
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
-
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-
-        currentBullet.TryGetComponent(out BulletScript bulletdata);
-
-        bulletdata.SetDamage(bulletDamage);
-
-        bulletdata.isEnemyBullet = true;
-
-        currentBullet.transform.forward = directionWithSpread.normalized;
-
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(this.transform.up * upwardForce, ForceMode.Impulse);
-
-        if (muzzleFlash != null)
+       
+        if (playerDirection.magnitude < minDistance)
         {
-            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+            readyToShoot = false;
+
+            Ray ray = new Ray(attackPoint.position, playerDirection.normalized);
+
+            Vector3 targetPoint;
+
+            /*   if (Physics.Raycast(ray, out hit))
+               {
+                   targetPoint = hit.point;
+               } else
+               {
+              targetPoint = ray.GetPoint(flyDistance);
+               }
+            */
+
+            targetPoint = ray.GetPoint(flyDistance);
+
+            Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+            float x = Random.Range(-spread, spread);
+            float y = Random.Range(-spread, spread);
+
+            Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+            GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+
+            currentBullet.TryGetComponent(out BulletScript bulletdata);
+
+            bulletdata.SetDamage(bulletDamage);
+
+            bulletdata.isEnemyBullet = true;
+
+            currentBullet.transform.forward = directionWithSpread.normalized;
+
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(this.transform.up * upwardForce, ForceMode.Impulse);
+
+            if (muzzleFlash != null)
+            {
+                Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+            }
+
+            StartCoroutine("DeleteBullet", currentBullet);
+
+            //audioSource.PlayOneShot(impact, 0.5f);
+
+            audioSource.Play();
+
+            bulletsLeft--;
+            bulletsShot++;
+
+            if (allowInvoke)
+            {
+                Invoke("ResetShot", timeBetweenShooting);
+                allowInvoke = false;
+
+            }
+
+            if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+            {
+                Invoke("Shoot", timeBetweenShots);
+
+            }
         }
-
-        StartCoroutine("DeleteBullet", currentBullet);
-
-        //audioSource.PlayOneShot(impact, 0.5f);
-
-        audioSource.Play();
-
-        bulletsLeft--;
-        bulletsShot++;
-
-        if (allowInvoke)
-        {
-            Invoke("ResetShot", timeBetweenShooting);
-            allowInvoke = false;
-
-        }
-
-        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
-        {
-            Invoke("Shoot", timeBetweenShots);
-
-        }
-
 
     }
 

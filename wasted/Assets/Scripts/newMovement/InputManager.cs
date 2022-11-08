@@ -33,6 +33,7 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        motor.Jetpack(onFoot.Fly.ReadValue<float>());
         gunScript.MyInput(onFoot.Shoot.ReadValue<float>());
     }
 

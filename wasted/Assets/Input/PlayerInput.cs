@@ -60,7 +60,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Fly"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""53d57fea-4bf3-4399-b27d-86ed77f80abe"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

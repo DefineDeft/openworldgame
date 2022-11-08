@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     public bool shooting, readyToShoot, reloading;
 
     public Camera fpsCam;
+    public Rigidbody playerbody;
     public Transform attackPoint;
 
     public GameObject muzzleFlash;
@@ -35,6 +36,7 @@ public class GunScript : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        playerbody = GetComponentInParent<Rigidbody>();
     }
 
     public void ManualReload()
@@ -106,8 +108,12 @@ public class GunScript : MonoBehaviour
 
         currentBullet.transform.forward = directionWithSpread.normalized;
 
+        currentBullet.GetComponent<Rigidbody>().velocity = playerbody.velocity;
+
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+
+        
 
         if (muzzleFlash != null)
         {

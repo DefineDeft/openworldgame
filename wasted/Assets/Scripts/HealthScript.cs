@@ -10,6 +10,7 @@ public class HealthScript : MonoBehaviour
     [SerializeField] private Image healthImage;
 
     [SerializeField] private int damage;
+    [SerializeField] private double regenRate = 0.5;
 
     public Transform respawn;
     
@@ -30,9 +31,10 @@ public class HealthScript : MonoBehaviour
 
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-
+        playerHealth += regenRate * Time.deltaTime;
+        UpdateHealth();
     }
 
     private void UpdateHealth()

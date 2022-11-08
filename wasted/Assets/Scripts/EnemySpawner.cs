@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
 
     public int EnemyCap;
     public GameObject EnemyType;
+    public float spawnfrequency = 5.0f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +22,13 @@ public class EnemySpawner : MonoBehaviour
         {
             if (this.transform.childCount < EnemyCap)
             {
+                
                 GameObject newEnemy = Instantiate(EnemyType, this.transform.position, Quaternion.identity);
                 newEnemy.transform.SetParent(this.transform);
+                
          
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(spawnfrequency);
         }
     }
 }
